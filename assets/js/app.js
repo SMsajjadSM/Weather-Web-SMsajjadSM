@@ -10,6 +10,7 @@ const searchView = document.querySelector("[data-search-view]");
 const searchTogglers = document.querySelectorAll("[data-search-toggler]");
 const toggleSearch = () => searchView.classList.toggle("active");
 addEventOnElements(searchTogglers, "click", toggleSearch);
+// ---searching---
 const searchFeild = document.querySelector("[data-search-field]");
 const searchResult = document.querySelector("[data-search-result]");
 let searchTimeOut = null;
@@ -24,23 +25,24 @@ searchFeild.addEventListener("input", function () {
   } else {
     searchFeild.classList.add("searching");
   }
-  if (searchFeild.Value) {
+  if (searchFeild.value) {
     searchTimeOut = setTimeout(() => {
       fetchData(url.geo(searchFeild.value), function (location) {
         // console.log(searchFeild.value);
         searchFeild.classList.remove("searching");
         searchResult.classList.add("active");
         searchResult.innerHTML = ` <ul class="view-list" data-search-list>
-              <li class="view-item">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <div>
-                  <p class="item-title">London</p>
-                  <p class="label-2 item-subtitle">State of London, GB</p>
-                </div>
-                <a href="#" class="item-link has-state" data-search-toggler></a>
-              </li>
-            </ul>`;
+            <li class="view-item">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <div>
+                <p class="item-title">London</p>
+                <p class="label-2 item-subtitle">State of London, GB</p>
+              </div>
+              <a href="#" class="item-link has-state" data-search-toggler></a>
+            </li>
+          </ul>`;
         const items = [];
+        console.log(location);
         for (const { name, lat, lon, country, state } of location) {
           const searchItem = document.createElement("li");
           searchItem.classList.add("view-item");
