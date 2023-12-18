@@ -362,7 +362,7 @@ body {
   transition: clip-path 500ms ease;
 }
 .search-view.active {
-  opacity: 1;
+  opacity: 10;
   visibility: visible;
   clip-path: circle(130% at 73% 5%);
 }
