@@ -6,7 +6,7 @@ const api_key = "8c2afaacf65df1976579f048d2fc4e25";
 @param {function} callback callback
 */
 export const fetchData = function (URl, callback) {
-  fetch(`${URL}&appid =${api_key}`)
+  fetch(`${URL}&appid=${api_key}`)
     .then((res) => res.json())
     .then((data) => callback(data));
 };
@@ -25,6 +25,8 @@ export const url = {
     return `http://api.openweathermap.org/geo/1.0/reverse?${lat}&${lon}&limit=5`;
   },
   geo(query) {
-    return `http://api.openweathermap.org/geo/1.0/direct?q=${London}&limit=5`;
+    return `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5`;
   },
 };
+
+// http://api.openweathermap.org/geo/1.0/direct?q=landon&limit=5&appid=${api_key}
