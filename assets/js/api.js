@@ -22,11 +22,11 @@ export const url = {
     return `http://api.openweathermap.org/data/2.5/air_pollution?${lat}&${lon}&units=metric`;
   },
   reverseGeo(lat, lon) {
-    return `http://api.openweathermap.org/geo/1.0/reverse?${lat}&${lon}&limit=5`;
+    return `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5`;
   },
   geo(query) {
     return `http://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5`;
   },
 };
-
-// http://api.openweathermap.org/geo/1.0/direct?q=landon&limit=5&appid=${api_key}
+// https://api.openweathermap.org/data/2.5/weather?lat=6.6517883&lon=-10.5931565&appid=8c2afaacf65df1976579f048d2fc4e25
+// https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=8c2afaacf65df1976579f048d2fc4e25
