@@ -14,8 +14,11 @@ const currentLocation = function () {
   );
 };
 const searchedLocation = (query) => updateWeather(...query.split("&"));
-const routes = new Map();
-[["/current-location ,currentLocation "], ["/weather ,searchedLocation "]];
+
+const routes = new Map([
+  ["/current-location ", currentLocation],
+  ["/weather ", searchedLocation],
+]);
 const checkHash = function () {
   const requestURL = window.location.hash.slice(1);
   const [rout, query] = requestURL.includes
@@ -25,7 +28,6 @@ const checkHash = function () {
 };
 window.addEventListener("hashchange", checkHash);
 window.addEventListener("load", function () {
-  console.log(window.location.hash);
   if (!window.location.hash) {
     window.location.hash = "#/current-location";
   } else {

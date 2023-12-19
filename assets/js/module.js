@@ -23,29 +23,26 @@ export const monthNames = [
   "Dec",
 ];
 export const getDate = (dateUnix, timeZone) => {
-  const date = new Date(dateUnix + timeZone) * 1000;
+  const date = new Date((dateUnix + timeZone) * 1000);
   const weekDayName = weekDayNames[date.getUTCDay()];
   const monthName = monthNames[date.getUTCMonth()];
 
-  return;
-  `${weekDayName} ${date.getUTCDate()}${monthName}`;
+  return `${weekDayName} ${date.getUTCDate()}${monthName}`;
 };
 export const getTime = (timeUnix, timeZone) => {
-  const date = new Date(timeUnix + timeZone) * 1000;
+  const date = new Date((timeUnix + timeZone) * 1000);
   const hours = date.getUTChours();
   const minuts = date.getUTCminuts();
   const period = hours >= 12 ? "PM" : "AM";
 
-  return;
-  `${hours % 12 || 12}:${minuts} ${period}`;
+  return `${hours % 12 || 12}:${minuts} ${period}`;
 };
 export const getHours = (timeUnix, timeZone) => {
-  const date = new Date(timeUnix + timeZone) * 1000;
+  const date = new Date((timeUnix + timeZone) * 1000);
   const hours = date.getUTChours();
   const period = hours >= 12 ? "PM" : "AM";
 
-  return;
-  `${hours % 12 || 12}:${period}`;
+  return `${hours % 12 || 12}${period}`;
 };
 export const mps_to_kmh = (mps) => {
   const mph = mps * 3600;
