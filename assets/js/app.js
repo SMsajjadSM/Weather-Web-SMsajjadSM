@@ -28,7 +28,6 @@ searchFeild.addEventListener("input", function () {
   if (searchFeild.value) {
     searchTimeOut = setTimeout(() => {
       fetchData(url.geo(searchFeild.value), function (location) {
-        // console.log(searchFeild.value);
         searchFeild.classList.remove("searching");
         searchResult.classList.add("active");
         searchResult.innerHTML = ` <ul class="view-list" data-search-list>
@@ -37,12 +36,11 @@ searchFeild.addEventListener("input", function () {
               <div>
                 <p class="item-title">London</p>
                 <p class="label-2 item-subtitle">State of London, GB</p>
-              </div>
-              <a href="#" class="item-link has-state" data-search-toggler></a>
+                </div>
+                <a href="#" class="item-link has-state" data-search-toggler></a>
             </li>
           </ul>`;
         const items = [];
-        console.log(location);
         for (const { name, lat, lon, country, state } of location) {
           const searchItem = document.createElement("li");
           searchItem.classList.add("view-item");
@@ -57,13 +55,19 @@ searchFeild.addEventListener("input", function () {
             .appendChild(searchItem);
           items.push(searchItem.querySelector("[data-search-toggler ]"));
         }
+        addEventOnElements(items, "click", function () {
+          toggleSearch();
+          searchResult.classList.remove("active");
+        });
       });
     }, searchTimeOutDuration);
   }
 });
+
+// ---dtaloading---
 const contianer = document.querySelector("[data-container]");
 const loading = document.querySelector("[data-loading]");
-const error404 = document.querySelector("[data-error-content]");
+const error404Content = document.querySelector("[data-error-content]");
 const currentLocationBtn = document.querySelector(
   "[data-current-location-btn]"
 );
@@ -72,7 +76,7 @@ export const updateWeather = function (lat, lon) {
   contianer.style.overflowY = "hidden";
   contianer.classList.contains("fade-in") ??
     contianer.classList.remove("fade-in");
-  error404.style.display = " none";
+  error404Content.style.display = " none";
   const currentWeatherSection = document.querySelector(
     "[data-current-weather]"
   );
@@ -100,9 +104,39 @@ export const updateWeather = function (lat, lon) {
       timezone,
     } = currentWeather;
     const [{ description, icon }] = weather;
-    const card = document.createElement;
-    ("div");
+    const card = document.createElement("div");
     card.classList.add("card", "card-lg", "current-weather-card ");
-    card.innerHTML = "";
+    card.innerHTML = `<h2 class="title-2 card-title">Now</h2>
+              <div class="weapper">
+                <p class="heading">${parseInt(temp)}℃</p>
+                <img
+                  src="./assets/icons/${icon}.svg "
+                  alt="${description}"
+                  width="84"
+                  height="84"
+                  class="weather-icon svg-icon-sun-first"
+                />
+              </div>
+              <p class="body-3">${description}</p>
+              <ul class="meta-list">
+                <li class="meta-item">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+
+                  <p class="title-3 meta-text">${module.getDate(
+                    dateUnix,
+                    timezone
+                  )}</p>
+                </li>
+                <li class="meta-item">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i>
+
+                  <p class="title-3 meta-text">data-location</p>
+                </li>
+              </ul>`;
+    fetchData(url.reverseGeo(lat, lon), function ([{ name, country }]) {
+      card.querySelector("[data-location]").innerHTML = `${name} , ${country}`;
+    });
+    currentWeatherSection.appendChild(card);
   });
 };
+export const error404 = function () {};
