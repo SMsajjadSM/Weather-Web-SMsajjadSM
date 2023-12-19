@@ -24,7 +24,8 @@ const checkHash = function () {
   routes.get(rout) ? routes.get(rout)(query) : error404();
 };
 window.addEventListener("hashchange", checkHash);
-Window.addEventListener("load", function () {
+window.addEventListener("load", function () {
+  console.log(window.location.hash);
   if (!window.location.hash) {
     window.location.hash = "#/current-location";
   } else {
