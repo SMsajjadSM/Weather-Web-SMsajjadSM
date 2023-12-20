@@ -2,6 +2,7 @@
 
 import { fetchData, url } from "./api.js";
 import * as module from "./module.js";
+import { searchedLocation } from "./route.js";
 
 const addEventOnElements = function (elements, eventType, callback) {
   for (const element of elements) element.addEventListener(eventType, callback);
@@ -50,7 +51,7 @@ searchFeild.addEventListener("input", function () {
                   <p class="item-title">${name}</p>
                   <p class="label-2 item-subtitle">${state || ""},${country}</p>
                 </div>
-                <a href="#/weather/lat=${lat}&lon=${lon}"  class="item-link has-state" aria-label =${name} data-search-toggler></a>`;
+                <a href="#/weather/lat=${lat}&lon=${lon}"  class="item-link has-state" aria-label=${name} data-search-toggler></a>`;
           searchResult
             .querySelector("[data-search-list]")
             .appendChild(searchItem);
@@ -59,6 +60,8 @@ searchFeild.addEventListener("input", function () {
         addEventOnElements(items, "click", function () {
           toggleSearch();
           searchResult.classList.remove("active");
+          const ss = String(items[0].hash).slice(10);
+          searchedLocation(ss);
         });
       });
     }, searchTimeOutDuration);
@@ -73,7 +76,8 @@ const currentLocationBtn = document.querySelector(
   "[data-current-location-btn]"
 );
 export const updateWeather = function (lat, lon) {
-  loading.style.display = "grid";
+  console.log("ok");
+  // loading.style.display = "grid";
   contianer.style.overflowY = "hidden";
   contianer.classList.contains("fade-in") ??
     contianer.classList.remove("fade-in");
@@ -106,7 +110,7 @@ export const updateWeather = function (lat, lon) {
     } = currentWeather;
     const [{ description, icon }] = weather;
     const card = document.createElement("div");
-    card.classList.add("card", "card-lg", "current-weather-card ");
+    card.classList.add("card", "card-lg", "current-weather-card");
     card.innerHTML = `<h2 class="title-2 card-title">Now</h2>
               <div class="weapper">
                 <p class="heading">${parseInt(temp)}℃</p>
@@ -131,7 +135,7 @@ export const updateWeather = function (lat, lon) {
                 <li class="meta-item">
                   <i class="fa fa-map-marker" aria-hidden="true"></i>
 
-                  <p class="title-3 meta-text">data-location</p>
+                  <p class="title-3 meta-text" data-location></p>
                 </li>
               </ul>`;
     fetchData(url.reverseGeo(lat, lon), function ([{ name, country }]) {

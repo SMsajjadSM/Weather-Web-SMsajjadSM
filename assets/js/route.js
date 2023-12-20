@@ -13,8 +13,14 @@ const currentLocation = function () {
     }
   );
 };
-const searchedLocation = (query) => updateWeather(...query.split("&"));
+/**
+ *
+ * @param {string} query
+ * @returns
+ */
+export const searchedLocation = (query) => updateWeather(...query.split("&"));
 
+// searchedLocation(ss);
 const routes = new Map([
   ["/current-location ", currentLocation],
   ["/weather ", searchedLocation],
