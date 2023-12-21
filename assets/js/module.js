@@ -31,15 +31,15 @@ export const getDate = (dateUnix, timeZone) => {
 };
 export const getTime = (timeUnix, timeZone) => {
   const date = new Date((timeUnix + timeZone) * 1000);
-  const hours = date.getUTChours();
-  const minuts = date.getUTCminuts();
+  const hours = date.getUTCHours();
+  const minuts = date.getUTCMinutes();
   const period = hours >= 12 ? "PM" : "AM";
 
   return `${hours % 12 || 12}:${minuts} ${period}`;
 };
 export const getHours = (timeUnix, timeZone) => {
   const date = new Date((timeUnix + timeZone) * 1000);
-  const hours = date.getUTChours();
+  const hours = date.getUTCHours();
   const period = hours >= 12 ? "PM" : "AM";
 
   return `${hours % 12 || 12}${period}`;
