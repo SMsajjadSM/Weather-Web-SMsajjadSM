@@ -50,8 +50,10 @@ searchFeild.addEventListener("input", function () {
         addEventOnElements(items, "click", function () {
           toggleSearch();
           searchResult.classList.remove("active");
-          const ss = String(items[0].hash).slice(10);
-          searchedLocation(ss);
+          const ss = String(items[0].hash).lastIndexOf("/");
+          const tt = String(items[0].hash).slice(ss + 1);
+
+          searchedLocation(tt);
         });
       });
     }, searchTimeOutDuration);
@@ -66,7 +68,6 @@ const currentLocationBtn = document.querySelector(
   "[data-current-location-btn]"
 );
 export const updateWeather = function (lat, lon) {
-  console.log("ok");
   // loading.style.display = "grid";
   contianer.style.overflowY = "hidden";
   contianer.classList.remove("fade-in");
@@ -89,7 +90,6 @@ export const updateWeather = function (lat, lon) {
 
   // ---get data weather ---
   fetchData(url.currentWeather(lat, lon), function (currentWeather) {
-    console.log(currentWeather);
     const {
       weather,
       dt: dateUnix,
@@ -134,7 +134,6 @@ export const updateWeather = function (lat, lon) {
     currentWeatherSection.appendChild(card);
     // ---airPollution---
     fetchData(url.airPollution(lat, lon), function (airPollution) {
-      console.log(airPollution);
       const [
         {
           main: { aqi },
@@ -263,7 +262,6 @@ export const updateWeather = function (lat, lon) {
     });
     // ---24h forecast ---
     fetchData(url.foreCast(lat, lon), function (foreCast) {
-      console.log(foreCast);
       const {
         list: forecastList,
         city: { timezone },
