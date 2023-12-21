@@ -321,6 +321,17 @@ body {
 .label-1-ss {
   margin-bottom: 12px;
 }
+.fade-in {
+  animation: fade-in 250ms ease forwards;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 /*-----------------------------------*\
   #HEADER
 \*-----------------------------------*/
@@ -482,7 +493,10 @@ article.container::before {
 .section:not(:last-child) {
   margin-block-end: 16px;
 }
-
+/* .title-1s {
+  max-width: 134.8px !important;
+  max-height: 48.89px !important;
+} */
 /*-----------------------------------*\
   #CURRENT WEATHER
 \*-----------------------------------*/
@@ -831,6 +845,7 @@ article.container::before {
   .hourly-forecast .card-sm {
     padding: 16px;
   }
+
   .card-item {
     margin-bottom: 0 !important;
   }
