@@ -16,6 +16,20 @@ const searchFeild = document.querySelector("[data-search-field]");
 const searchResult = document.querySelector("[data-search-result]");
 let searchTimeOut = null;
 const searchTimeOutDuration = 500;
+const btnCurrentLocation = document
+  .querySelector("[ data-current-location-btn]")
+  .addEventListener("click", () => {
+    window.navigator.geolocation.getCurrentPosition(
+      (res) => {
+        console.log(res);
+        const { latitude, longitude } = res.coords;
+        searchedLocation(`lat=${latitude}&lon=${longitude}`);
+      },
+      (err) => {
+        window.location.hash = defaultLocation;
+      }
+    );
+  });
 searchFeild.addEventListener("input", function () {
   searchTimeOut ?? clearTimeout(searchTimeOut);
 
@@ -54,6 +68,7 @@ searchFeild.addEventListener("input", function () {
           const tt = String(items[0].hash).slice(ss + 1);
 
           searchedLocation(tt);
+          searchFeild.value = "";
         });
       });
     }, searchTimeOutDuration);
@@ -367,6 +382,11 @@ export const updateWeather = function (lat, lon) {
       loading.style.display = "none";
       contianer.style.overflowY = "overlay";
       contianer.classList.add("fade-in");
+      if (window.location.hash === "#/current-location") {
+        currentLocationBtn.setAttribute("disabled", "");
+      } else {
+        currentLocationBtn.removeAttribute("disabled");
+      }
     });
   });
 };
