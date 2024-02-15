@@ -3,7 +3,7 @@
 ## What do you think the weather is like today?!!
 
 
-[Demo of Todolist](https://smsajjadsm.github.io/Weather-Web-SMsajjadSM/)
+[Demo of Weather app](https://smsajjadsm.github.io/Weather-Web-SMsajjadSM/)
 ===
 ![plot](./IMG/1.png)
 
